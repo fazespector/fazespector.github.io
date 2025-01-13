@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Student Details Upload</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Details Upload</h1>
+        <form id="studentForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="number" id="age" placeholder="Age" required>
+            <input type="text" id="grade" placeholder="Grade" required>
+            <textarea id="activities" placeholder="Extracurricular Activities (comma separated)" required></textarea>
+            <textarea id="achievements" placeholder="Achievements (comma separated)" required></textarea>
+            <button type="submit">Upload</button>
+        </form>
+        <p><a href="dashboard.html">Go to Dashboard</a></p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <center><img src="llll.png" alt="" class="footer-logo"></center>
+            <center><p>&copy; 2025 Asoka Vidyalaya. All rights reserved.</p></center>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const grade = document.getElementById('grade').value;
+            const activities = document.getElementById('activities').value.split(',').map(a => a.trim());
+            const achievements = document.getElementById('achievements').value.split(',').map(a => a.trim());
+
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            students.push({ name, age, grade, activities, achievements });
+            localStorage.setItem('students', JSON.stringify(students));
+
+            alert('Student details uploaded successfully!');
+            document.getElementById('studentForm').reset();
+        });
+    </script>
+</body>
+</html>
